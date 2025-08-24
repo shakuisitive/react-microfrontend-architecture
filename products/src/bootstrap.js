@@ -1,10 +1,26 @@
 import faker from "faker";
 
-let products = "";
+if (process.env.NODE_ENV === "development") {
+  let el = document.querySelector("#dev-products");
 
-for (let i = 0; i < 10; i++) {
-  let productName = faker.commerce.productName();
-  products += `<div>${productName}</div>`;
+  if (el) {
+    // we can say we're running this in isolation,
+    // not using our container
+    mount(el);
+
+    console.log("running in isolation");
+  }
 }
 
-document.querySelector("#dev-products").innerHTML = products;
+function mount(el) {
+  let products = "";
+
+  for (let i = 0; i < 10; i++) {
+    let productName = faker.commerce.productName();
+    products += `<div>${productName}</div>`;
+  }
+
+  el.innerHTML = products;
+}
+
+export { mount };
