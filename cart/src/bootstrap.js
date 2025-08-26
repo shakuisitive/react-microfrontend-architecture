@@ -1,5 +1,17 @@
 import faker from "faker";
 
-let cartText = `<div>You have ${faker.random.number()} products in your cart.</div>`;
+function mount(el) {
+  let cartText = `<div>You have ${faker.random.number()} products in your cart.</div>`;
+  el.innerHTML = cartText;
+}
 
-document.querySelector("#cart-dev").innerHTML = cartText;
+// See if we're running the project in development + and in isolation
+
+if (process.env.NODE_ENV === "development") {
+  let el = document.querySelector("#cart-dev");
+  if (el) {
+    mount(el);
+  }
+}
+
+export { mount };
